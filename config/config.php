@@ -16,7 +16,7 @@ class Config extends \Ilch\Config\Install
         'link' => 'http://ilch.de',
         'languages' => [
             'de_DE' => [
-                'name' => 'Kasse',
+                'name' => 'Kasse INTL',
                 'description' => 'Hier kann die Clan-Kasse gepflegt werden.',
             ],
             'en_EN' => [
