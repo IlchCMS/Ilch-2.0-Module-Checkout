@@ -20,7 +20,7 @@ class Config extends \Ilch\Config\Install
                 'description' => 'Hier kann die Clan-Kasse gepflegt werden.',
             ],
             'en_EN' => [
-                'name' => 'Checkout',
+                'name' => 'Checkout INTL',
                 'description' => 'Here you can manage your clan cash.',
             ],
         ],
