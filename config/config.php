@@ -76,8 +76,8 @@ class Config extends \Ilch\Config\Install
     public function getUpdate($installedVersion)
     {
         switch ($installedVersion) {
-            case "1.0.0":
-            case "1.1.0":
+            case "1.0":
+            case "1.1":
                 // Convert tables to new character set and collate
                 $this->db()->query('ALTER TABLE `[prefix]_checkoutbasic` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
                 $this->db()->query('ALTER TABLE `[prefix]_checkoutbasic_currencies` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
