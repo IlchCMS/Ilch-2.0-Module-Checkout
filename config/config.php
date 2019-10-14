@@ -10,7 +10,7 @@ class Config extends \Ilch\Config\Install
 {
     public $config = [
         'key' => 'checkout',
-        'version' => '1.3.0',
+        'version' => '1.4.0',
         'icon_small' => 'fa-credit-card',
         'author' => 'Stantin, Thomas',
         'link' => 'http://ilch.de',
@@ -24,7 +24,7 @@ class Config extends \Ilch\Config\Install
                 'description' => 'Here you can manage your clan cash.',
             ],
         ],
-        'ilchCore' => '2.1.16',
+        'ilchCore' => '2.1.26',
         'phpVersion' => '5.6',
         'phpExtensions' => [
             'intl'
