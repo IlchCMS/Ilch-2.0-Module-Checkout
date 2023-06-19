@@ -1,26 +1,40 @@
 <?php
+
+/** @var \Ilch\View $this */
+
 $currency = $this->escape($this->get('currency'));
-$date;
 ?>
 
 <h1><?=$this->getTrans('accountdata') ?></h1>
-<?php if ($this->get('checkout_contact') != '') { echo $this->purify($this->get('checkout_contact')) ; } ?>
+<?=($this->get('checkout_contact') != '') ? $this->purify($this->get('checkout_contact')) : '' ?>
 <br>
 <br>
 <h1><?=$this->getTrans('bankbalance') ?></h1>
 <div>
     <strong>
-        <?php if ($this->get('amount') != '') { echo $this->getTrans('balancetotal'),': ', $this->escape($this->getFormattedCurrency($this->get('amount'), $currency)); } 
-        else { echo $this->getTrans('balancetotal'), ': ', $this->escape($this->getFormattedCurrency(0, $currency)) ;}
+        <?php
+        if ($this->get('amount') != '') {
+            echo $this->getTrans('balancetotal'),': ', $this->escape($this->getFormattedCurrency($this->get('amount'), $currency));
+        } else {
+            echo $this->getTrans('balancetotal'), ': ', $this->escape($this->getFormattedCurrency(0, $currency)) ;
+        }
         ?>
     </strong>
     <br>
-    <?php if ($this->get('amountplus') != '') { echo $this->getTrans('totalpaid'),': ', $this->escape($this->getFormattedCurrency($this->get('amountplus'), $currency)); } 
-    else { echo $this->getTrans('totalpaid'), ': ', $this->escape($this->getFormattedCurrency(0, $currency)) ;}
-    ?>
+        <?php
+        if ($this->get('amountplus') != '') {
+            echo $this->getTrans('totalpaid'), ': ', $this->escape($this->getFormattedCurrency($this->get('amountplus'), $currency));
+        } else {
+            echo $this->getTrans('totalpaid'), ': ', $this->escape($this->getFormattedCurrency(0, $currency));
+        }
+        ?>
     <br>
-    <?php if ($this->get('amountminus') != '') { echo $this->getTrans('totalpaidout'),': ', $this->escape($this->getFormattedCurrency($this->get('amountminus'), $currency)); } 
-    else { echo $this->getTrans('totalpaidout'), ': ', $this->escape($this->getFormattedCurrency(0, $currency)) ;}
+    <?php
+    if ($this->get('amountminus') != '') {
+        echo $this->getTrans('totalpaidout'),': ', $this->escape($this->getFormattedCurrency($this->get('amountminus'), $currency));
+    } else {
+        echo $this->getTrans('totalpaidout'), ': ', $this->escape($this->getFormattedCurrency(0, $currency)) ;
+    }
     ?>
 </div>
 <br>
@@ -42,7 +56,9 @@ $date;
         </tr>
     </thead>
     <tbody>
-    <?php foreach ($this->get('checkout') as $checkout): ?>
+    <?php
+    foreach ($this->get('checkout') as $checkout) :
+        ?>
         <?php $date = new \Ilch\Date($checkout->getDatetime()); ?>
         <tr>
             <td><?=$this->escape($date->format(null, true)) ?></td>
@@ -50,6 +66,8 @@ $date;
             <td><?=$this->escape($this->getFormattedCurrency($checkout->getAmount(), $currency)) ?></td>
             <td><?=$this->escape($checkout->getUsage()) ?></td>
         </tr>
-    <?php endforeach; ?>
+        <?php
+    endforeach;
+    ?>
     </tbody>
 </table>
