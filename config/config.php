@@ -88,8 +88,6 @@ class Config extends \Ilch\Config\Install
             case "1.2.0":
             case "1.3.0":
             case "1.4.0":
-            case "1.4.1":
-            case "1.4.2":
                 $this->db()->update('modules')->values(['link' => $this->config['link'], 'icon_small' => $this->config['icon_small']])->where(['key' => $this->config['key']])->execute();
         }
 
