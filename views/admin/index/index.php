@@ -71,75 +71,75 @@ $checkouts = $this->get('checkout');
     <br>
     <br>
     <div class="row">
-      <div class="col-lg-4">
-          <h1><?=$this->getTrans('bankbalance') ?></h1>
-          <div class="card card-default">
-              <div class="card-body">
-                  <strong>
+        <div class="col-lg-4">
+            <h1><?=$this->getTrans('bankbalance') ?></h1>
+            <div class="card card-default">
+                <div class="card-body">
+                    <strong>
+                        <?php
+                            if ($this->get('amount') != '') {
+                                echo $this->getTrans('balancetotal'),': ', $this->escape($this->getFormattedCurrency($this->get('amount'), $currency));
+                            } else {
+                                echo $this->getTrans('balancetotal'), ': ', $this->escape($this->getFormattedCurrency(0, $currency));
+                            }
+                        ?>
+                    </strong>
+                    <br>
+                    <?php
+                    if ($this->get('amountplus') != '') {
+                        echo $this->getTrans('totalpaid'), ': ', $this->escape($this->getFormattedCurrency($this->get('amountplus'), $currency));
+                    } else {
+                        echo $this->getTrans('totalpaid'), ': ', $this->escape($this->getFormattedCurrency(0, $currency));
+                    }
+                    ?>
+                    <br>
                       <?php
-                      if ($this->get('amount') != '') {
-                          echo $this->getTrans('balancetotal'),': ', $this->escape($this->getFormattedCurrency($this->get('amount'), $currency));
+                      if ($this->get('amountminus') != '') {
+                          echo $this->getTrans('totalpaidout'),': ', $this->escape($this->getFormattedCurrency($this->get('amountminus'), $currency));
                       } else {
-                          echo $this->getTrans('balancetotal'), ': ', $this->escape($this->getFormattedCurrency(0, $currency)) ;
+                          echo $this->getTrans('totalpaidout'), ': ', $this->escape($this->getFormattedCurrency(0, $currency));
                       }
                       ?>
-                  </strong>
-                  <br>
-                      <?php
-                      if ($this->get('amountplus') != '') {
-                          echo $this->getTrans('totalpaid'), ': ', $this->escape($this->getFormattedCurrency($this->get('amountplus'), $currency));
-                      } else {
-                          echo $this->getTrans('totalpaid'), ': ', $this->escape($this->getFormattedCurrency(0, $currency)) ;
-                      }
-                      ?>
-                  <br>
-                  <?php
-                  if ($this->get('amountminus') != '') {
-                      echo $this->getTrans('totalpaidout'),': ', $this->escape($this->getFormattedCurrency($this->get('amountminus'), $currency));
-                  } else {
-                      echo $this->getTrans('totalpaidout'), ': ', $this->escape($this->getFormattedCurrency(0, $currency)) ;
-                  }
-                  ?>
-              </div>
-          </div>
-      </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
-      <div class="col-xl-12">
-          <h1><?=$this->getTrans('bookedpayments') ?></h1>
-          <table class="table table-hover table-striped">
-              <colgroup>
-                  <col class="icon_width">
-                  <col class="icon_width">
-                  <col class="col-xl-2">
-                  <col>
-                  <col class="col-xl-2">
-                  <col>
-              </colgroup>
-              <thead>
-                  <tr>
-                      <th></th>
-                      <th></th>
-                      <th><?=$this->getTrans('datetime') ?></th>
-                      <th><?=$this->getTrans('name') ?></th>
-                      <th><?=$this->getTrans('amount') ?></th>
-                      <th><?=$this->getTrans('usage') ?></th>
-                  </tr>
-              </thead>
-              <tbody>
-              <?php foreach ($checkouts ?? [] as $checkout) : ?>
-                  <?php $date = new \Ilch\Date($checkout->getDatetime()); ?>
-                  <tr>
-                      <td><?=$this->getEditIcon(['action' => 'treatPayment', 'id' => $this->escape($checkout->getId())]) ?></td>
-                      <td><?=$this->getDeleteIcon(['action' => 'del', 'id' => $this->escape($checkout->getId())]) ?></td>
-                      <td><?=$this->escape($date->format(null, true)) ?></td>
-                      <td><?=$this->escape($checkout->getName()) ?></td>
-                      <td><?=$this->escape($this->getFormattedCurrency($checkout->getAmount(), $currency)) ?></td>
-                      <td><?=$this->escape($checkout->getUsage()) ?></td>
-                  </tr>
-              <?php endforeach; ?>
-              </tbody>
-          </table>
+        <div class="col-xl-12">
+            <h1><?=$this->getTrans('bookedpayments') ?></h1>
+            <table class="table table-hover table-striped">
+                <colgroup>
+                    <col class="icon_width">
+                    <col class="icon_width">
+                    <col class="col-xl-2">
+                    <col>
+                    <col class="col-xl-2">
+                    <col>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th><?=$this->getTrans('datetime') ?></th>
+                        <th><?=$this->getTrans('name') ?></th>
+                        <th><?=$this->getTrans('amount') ?></th>
+                        <th><?=$this->getTrans('usage') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($checkouts ?? [] as $checkout) : ?>
+                    <?php $date = new \Ilch\Date($checkout->getDatetime()); ?>
+                    <tr>
+                        <td><?=$this->getEditIcon(['action' => 'treatPayment', 'id' => $this->escape($checkout->getId())]) ?></td>
+                        <td><?=$this->getDeleteIcon(['action' => 'del', 'id' => $this->escape($checkout->getId())]) ?></td>
+                        <td><?=$this->escape($date->format(null, true)) ?></td>
+                        <td><?=$this->escape($checkout->getName()) ?></td>
+                        <td><?=$this->escape($this->getFormattedCurrency($checkout->getAmount(), $currency)) ?></td>
+                        <td><?=$this->escape($checkout->getUsage()) ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
     </div>
     <?=$this->getSaveBar($this->getTrans('book')) ?>
