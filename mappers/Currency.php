@@ -126,9 +126,9 @@ class Currency extends \Ilch\Mapper
      * Deletes the currency by id.
      *
      * @param int $id
-     * @return bool
+     * @return \Ilch\Database\Mysql\Result|int
      */
-    public function deleteCurrencyById(int $id): bool
+    public function deleteCurrencyById(int $id)
     {
         return $this->db()->delete($this->tablename)
             ->where(['id' => $id])
