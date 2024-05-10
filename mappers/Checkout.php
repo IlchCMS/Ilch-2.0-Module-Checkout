@@ -73,7 +73,7 @@ class Checkout extends \Ilch\Mapper
      * Gets the Checkout entries.
      *
      * @param array $where
-     * @return CheckoutModel[]|array
+     * @return CheckoutModel[]|null
      */
     public function getEntries(array $where = []): ?array
     {
