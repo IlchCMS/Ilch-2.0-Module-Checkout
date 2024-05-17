@@ -158,7 +158,7 @@ class Checkout extends \Ilch\Mapper
      */
     public function deleteById(int $id): bool
     {
-        return $this->db()->delete('checkout')
+        return $this->db()->delete($this->tablename)
             ->where(['id' => $id])
             ->execute();
     }

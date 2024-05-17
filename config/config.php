@@ -11,7 +11,7 @@ class Config extends \Ilch\Config\Install
 {
     public $config = [
         'key' => 'checkout',
-        'version' => '1.5.0',
+        'version' => '1.6.0',
         'icon_small' => 'fa-regular fa-credit-card',
         'author' => 'Stantin, Thomas',
         'link' => 'https://ilch.de',
@@ -25,11 +25,11 @@ class Config extends \Ilch\Config\Install
                 'description' => 'Here you can manage your clan cash.',
             ],
         ],
-        'ilchCore' => '2.1.48',
-        'phpVersion' => '7.3',
         'phpExtensions' => [
             'intl'
-        ]
+        ],
+        'ilchCore' => '2.2.0',
+        'phpVersion' => '7.3'
     ];
 
     public function install()
@@ -68,11 +68,11 @@ class Config extends \Ilch\Config\Install
                   PRIMARY KEY (`id`)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=1;
 
-                INSERT INTO `[prefix]_checkout_currencies` (`id`, `name`) VALUES (1, "EUR");
-                INSERT INTO `[prefix]_checkout_currencies` (`id`, `name`) VALUES (2, "USD");
-                INSERT INTO `[prefix]_checkout_currencies` (`id`, `name`) VALUES (3, "GBP");
-                INSERT INTO `[prefix]_checkout_currencies` (`id`, `name`) VALUES (4, "AUD");
-                INSERT INTO `[prefix]_checkout_currencies` (`id`, `name`) VALUES (5, "NZD");
+                INSERT INTO `[prefix]_checkout_currencies` (`id`, `name`) VALUES (1, "EUR (€)");
+                INSERT INTO `[prefix]_checkout_currencies` (`id`, `name`) VALUES (2, "USD ($)");
+                INSERT INTO `[prefix]_checkout_currencies` (`id`, `name`) VALUES (3, "GBP (£)");
+                INSERT INTO `[prefix]_checkout_currencies` (`id`, `name`) VALUES (4, "AUD ($)");
+                INSERT INTO `[prefix]_checkout_currencies` (`id`, `name`) VALUES (5, "NZD ($)");
                 INSERT INTO `[prefix]_checkout_currencies` (`id`, `name`) VALUES (6, "CHF");';
     }
 
@@ -82,13 +82,19 @@ class Config extends \Ilch\Config\Install
             case "1.0":
             case "1.1":
                 // Convert tables to new character set and collate
-                $this->db()->query('ALTER TABLE `[prefix]_checkoutbasic` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
-                $this->db()->query('ALTER TABLE `[prefix]_checkoutbasic_currencies` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
-            // no break
+                $this->db()->query('ALTER TABLE `[prefix]_checkout` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
+                $this->db()->query('ALTER TABLE `[prefix]_checkout_currencies` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;');
+                // no break
             case "1.2.0":
             case "1.3.0":
             case "1.4.0":
-                $this->db()->update('modules')->values(['link' => $this->config['link'], 'icon_small' => $this->config['icon_small']])->where(['key' => $this->config['key']])->execute();
+                $this->db()->update('modules')->values(['link' => $this->config['link']])->where(['key' => $this->config['key']])->execute();
+                // no break
+            case "1.4.1":
+            case "1.4.2":
+                $this->db()->update('modules')->values(['icon_small' => $this->config['icon_small']])->where(['key' => $this->config['key']])->execute();
+                // no break
+            case "1.5.0":
         }
 
         return 'Update function executed.';

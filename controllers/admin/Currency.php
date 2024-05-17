@@ -59,14 +59,14 @@ class Currency extends \Ilch\Controller\Admin
         $currencyMapper = new CurrencyMapper();
 
         $this->getLayout()->getAdminHmenu()
-            ->add($this->getTranslator()->trans('checkout'), ['action' => 'index'])
-            ->add($this->getTranslator()->trans('currencies'), ['action' => 'index']);
+                ->add($this->getTranslator()->trans('checkout'), ['action' => 'index'])
+                ->add($this->getTranslator()->trans('currencies'), ['action' => 'index']);
 
         if ($this->getRequest()->isPost() && $this->getRequest()->isSecure()) {
             if ($this->getRequest()->getPost('action') == 'delete' && $this->getRequest()->getPost('check_currencies')) {
                 foreach ($this->getRequest()->getPost('check_currencies') as $id) {
                     $currency = $currencyMapper->getCurrencyById($id);
-                    if ($currency && $currency->getId() == $this->getConfig()->get('checkoutbasic_currency')) {
+                    if ($currency && $currency->getId() == $this->getConfig()->get('checkout_currency')) {
                         $this->addMessage('currencyInUse', 'danger');
                         continue;
                     }
@@ -95,14 +95,14 @@ class Currency extends \Ilch\Controller\Admin
             }
 
             $this->getLayout()->getAdminHmenu()
-                ->add($this->getTranslator()->trans('checkout'), ['action' => 'index'])
-                ->add($this->getTranslator()->trans('currencies'), ['action' => 'index'])
-                ->add($this->getTranslator()->trans('edit'), ['action' => 'treat', 'id' => 'treat']);
+                    ->add($this->getTranslator()->trans('checkout'), ['action' => 'index'])
+                    ->add($this->getTranslator()->trans('currencies'), ['action' => 'index'])
+                    ->add($this->getTranslator()->trans('edit'), ['action' => 'treat', 'id' => 'treat']);
         } else {
             $this->getLayout()->getAdminHmenu()
-                ->add($this->getTranslator()->trans('checkout'), ['action' => 'index'])
-                ->add($this->getTranslator()->trans('currencies'), ['action' => 'index'])
-                ->add($this->getTranslator()->trans('add'), ['action' => 'treat', 'id' => 'treat']);
+                    ->add($this->getTranslator()->trans('checkout'), ['action' => 'index'])
+                    ->add($this->getTranslator()->trans('currencies'), ['action' => 'index'])
+                    ->add($this->getTranslator()->trans('add'), ['action' => 'treat', 'id' => 'treat']);
         }
 
         if ($this->getRequest()->isPost() && $this->getRequest()->isSecure()) {
@@ -136,7 +136,7 @@ class Currency extends \Ilch\Controller\Admin
             $currencyMapper = new CurrencyMapper();
 
             $currency = $currencyMapper->getCurrencyById($this->getRequest()->getParam('id'));
-            if ($currency && $currency->getId() == $this->getConfig()->get('checkoutbasic_currency')) {
+            if ($currency && $currency->getId() == $this->getConfig()->get('checkout_currency')) {
                 $this->addMessage('currencyInUse', 'danger');
                 $this->redirect(['action' => 'index']);
             }
